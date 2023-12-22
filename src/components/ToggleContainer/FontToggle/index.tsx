@@ -1,13 +1,34 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BaseStyle } from '../../../styles/GlobalStyles';
 
 function FontToggle() {
-  const [font, setFont] = useState('var(--fm-primary)');
+  const [font, setFont] = useState('');
 
-  function changeFontFamily(e: ChangeEvent<HTMLSelectElement>) {
-    setFont(e.target.value);
+  /**
+   * Change font and save it locally
+   *
+   * @param e - Fire on change
+   */
+  function changeFontFamily(e: ChangeEvent<HTMLSelectElement>): void {
+    const selectedFont = e.target.value;
+
+    setFont(selectedFont);
+    localStorage.setItem('font', selectedFont);
   }
+
+  /**
+   * Set the initial font if it's user's first time or they never changed the font
+   */
+  useEffect(() => {
+    const savedFont = localStorage.getItem('font');
+
+    if (savedFont !== null) {
+      setFont(savedFont);
+    } else {
+      setFont('var(--fm-primary)');
+    }
+  }, [font]);
 
   return (
     <>
@@ -23,6 +44,7 @@ function FontToggle() {
       <StyledContainer>
         <StyledSelect
           id='select'
+          value={font}
           onChange={changeFontFamily}
         >
           <option value='var(--fm-primary)'>Sans Serif</option>
