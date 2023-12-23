@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../styles/MediaQuery';
 import ThemeContainer from '../ToggleContainer';
 
 function Header() {
@@ -30,6 +31,9 @@ const StyledHeader = styled.header`
   & > div:first-child {
     display: flex;
     max-width: 1.75rem;
-    max-height: 2rem;
+
+    @media ${device.tablet} {
+      max-width: 2rem;
+    }
   }
 `;

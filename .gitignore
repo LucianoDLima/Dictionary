@@ -13,6 +13,7 @@ dist-ssr
 *.local
 dictionary-web-app
 *.fig
+commits.md
 
 # Editor directories and files
 .vscode/*

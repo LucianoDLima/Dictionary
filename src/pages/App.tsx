@@ -1,6 +1,7 @@
 import Styles from '../styles';
 import { ThemeProvider } from '../hooks/useTheme';
 import Header from '../components/Header';
+import Search from '../components/Search';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Styles />
       <ThemeProvider>
         <Header />
+        <Search />
       </ThemeProvider>
     </>
   );

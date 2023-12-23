@@ -85,7 +85,7 @@ const StyledArrow = styled.svg`
   pointer-events: none;
 
   path {
-    stroke: var(--clr-bg-toggle);
+    stroke: var(--clr-accent-purple);
   }
 `;
 

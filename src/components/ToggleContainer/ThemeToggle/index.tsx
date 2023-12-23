@@ -1,71 +1,82 @@
 import styled from 'styled-components';
 import { useTheme, useThemeUpdate } from '../../../hooks/useTheme';
-import useIsMobile from '../../../hooks/useScreenSize';
 
 function ThemeToggle() {
   const { darkTheme } = useTheme();
   const toggleTheme = useThemeUpdate();
-  const { isMobile } = useIsMobile();
 
-  const mobileToggle =
-    'M52 10.449C51.9985 12.8283 52.8017 15.1383 54.2791 17.0033C55.7566 18.8683 57.8214 20.1788 60.138 20.7218C62.4545 21.2647 64.8866 21.0082 67.039 19.994C69.1912 18.9797 70.9373 17.2673 71.9931 15.1352C62.5442 15.1352 57.858 10.4479 57.858 1C56.0984 1.87311 54.6177 3.22033 53.5827 4.88981C52.5476 6.5593 51.9995 8.48469 52 10.449Z';
-  const desktopToggle =
-    'M60 10.449C59.9985 12.8283 60.8017 15.1383 62.2791 17.0033C63.7566 18.8683 65.8214 20.1788 68.138 20.7218C70.4545 21.2647 72.8866 21.0082 75.039 19.994C77.1912 18.9797 78.9373 17.2673 79.9931 15.1352C70.5442 15.1352 65.858 10.4479 65.858 1C64.0984 1.87311 62.6177 3.22033 61.5827 4.88981C60.5476 6.5593 59.9995 8.48469 60 10.449Z';
+  /**
+   * Change theme when pressing enter key
+   *
+   * @param e - Enter key
+   */
+  function handleKeyPressThemeChange(e: React.KeyboardEvent<HTMLButtonElement>): void {
+    if (e.key === 'Enter') {
+      toggleTheme();
+    }
+  }
 
   return (
     <StyledContainer>
-      <StyledToggle
+      <StyledRectangle
+        onClick={toggleTheme}
+        onKeyUp={() => handleKeyPressThemeChange}
+        direction={darkTheme ? '60%' : '10%'}
+      />
+
+      <StyledMoon
         xmlns='http://www.w3.org/2000/svg'
-        viewBox='0 0 81 22'
-        fill='none'
+        viewBox='0 0 22 22'
       >
-        <rect
-          y='1'
-          rx='10'
-          onClick={toggleTheme}
-        />
-        <circle
-          cx={darkTheme ? '30' : '10'}
-          cy='11'
-          r='7'
-        />
         <path
-          d={isMobile ? mobileToggle : desktopToggle}
-          strokeWidth='1.5'
-          strokeLinecap='round'
-          strokeLinejoin='round'
+          fill='none'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          stroke-width='1.5'
+          d='M1 10.449a10.544 10.544 0 0 0 19.993 4.686C11.544 15.135 6.858 10.448 6.858 1A10.545 10.545 0 0 0 1 10.449Z'
         />
-      </StyledToggle>
+      </StyledMoon>
     </StyledContainer>
   );
 }
 
 export default ThemeToggle;
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.span`
   display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
-const StyledToggle = styled.svg`
-  width: 5.08rem;
-  height: 1.295rem;
+const StyledRectangle = styled.button<{ direction: string }>`
+  position: relative;
+  width: 2.35rem;
+  padding: 0.55rem;
+  border-radius: 5rem;
+  background-color: var(--clr-bg-toggle);
+  cursor: pointer;
 
-  rect {
-    width: 2.5rem;
-    height: 1.25rem;
-    fill: var(--clr-bg-toggle);
-    cursor: pointer;
-  }
-
-  circle {
-    fill: var(--clr-button-toggle);
+  &::after {
+    --circle-size: 0.75rem;
+    content: '';
+    position: absolute;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    left: ${(props) => props.direction};
     transition: 250ms;
-    pointer-events: none;
   }
+`;
+
+const StyledMoon = styled.svg`
+  --moon-size: 1.375rem;
+  width: var(--moon-size);
+  height: var(--moon-size);
 
   path {
-    fill-rule: evenodd;
-    clip-rule: evenodd;
     stroke: var(--clr-bg-toggle);
   }
 `;

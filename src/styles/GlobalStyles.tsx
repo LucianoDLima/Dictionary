@@ -23,14 +23,14 @@ export const ResetStyle = createGlobalStyle`
 
 `;
 
-export const BaseStyle = createGlobalStyle<{selectedFont?: string  }>`
+export const BaseStyle = createGlobalStyle<{ selectedFont?: string }>`
   body {
     background-color: var(--clr-bg-primary);
     color: var(--clr-body-primary);
     font-family: ${(props) => props.selectedFont}, sans-serif, var(--fm-auto);
-    /* font-family: monospace; */
   }
 
+  /* Hide element from dom. Screen readers can still read it */
   .screen-reader {
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
@@ -43,6 +43,14 @@ export const BaseStyle = createGlobalStyle<{selectedFont?: string  }>`
   width: 1px;
   word-wrap: normal !important;
 }
+
+  /* Remove animations for those who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: 0s !important;
+      animation: none !important;
+    }
+  }
 `;
 
 export const VariablesStyle = createGlobalStyle`
@@ -89,6 +97,7 @@ export const ThemeStyle = createGlobalStyle`
     --clr-body-primary: var(--mine-shaft--medium);
     --clr-body-secondary: var(--boulder);
     --clr-accent: var(--medium-orange);
+    --clr-accent-purple: var(--medium-purple);
     --clr-error: var(--sunset-orange);
     --clr-bg-toggle: var(--boulder);
     --clr-button-toggle: var(--white);
@@ -101,6 +110,7 @@ export const ThemeStyle = createGlobalStyle`
     --clr-body-primary: var(--white);
     --clr-body-secondary: var(--boulder);
     --clr-accent: var(--medium-orange);
+    --clr-accent-purple: var(--medium-purple);
     --clr-error: var(--sunset-orange);
     --clr-bg-toggle: var(--medium-purple);
     --clr-button-toggle: var(--white);
