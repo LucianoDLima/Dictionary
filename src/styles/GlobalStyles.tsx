@@ -75,11 +75,13 @@ export const VariablesStyle = createGlobalStyle`
     --fm-tertiary: 'Monospace', var(--fm-auto);
 
     /* -- Font Size -- */
-    --fs-heading-L: 4rem;
+    --fs-heading-XL: 4rem;
+    --fs-heading-L: 2rem;
     --fs-heading-M: 1.5rem;
     --fs-heading-S: 1.25rem;
     --fs-body-M: 1.125rem;
-    --fs-body-S: 0.875rem;
+    --fs-body-S: 0.9375rem;
+    --fs-body-XS: 0.875rem;
 
     /* -- Paddings and margins -- */
     --p-mobile: 1.5rem;
@@ -96,8 +98,7 @@ export const ThemeStyle = createGlobalStyle`
     --clr-bg-tertiary: _;
     --clr-body-primary: var(--mine-shaft--medium);
     --clr-body-secondary: var(--boulder);
-    --clr-accent: var(--medium-orange);
-    --clr-accent-purple: var(--medium-purple);
+    --clr-accent: var(--medium-purple);
     --clr-error: var(--sunset-orange);
     --clr-bg-toggle: var(--boulder);
     --clr-button-toggle: var(--white);
@@ -109,8 +110,7 @@ export const ThemeStyle = createGlobalStyle`
     --clr-bg-tertiary: var(--mine-shaft--medium);
     --clr-body-primary: var(--white);
     --clr-body-secondary: var(--boulder);
-    --clr-accent: var(--medium-orange);
-    --clr-accent-purple: var(--medium-purple);
+    --clr-accent: var(--medium-purple);
     --clr-error: var(--sunset-orange);
     --clr-bg-toggle: var(--medium-purple);
     --clr-button-toggle: var(--white);

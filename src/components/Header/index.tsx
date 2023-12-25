@@ -24,7 +24,7 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   padding-inline: var(--p-mobile);
   margin-block: var(--p-mobile);
-  font-size: var(--fs-body-S);
+  font-size: var(--fs-body-XS);
   max-width: var(--w-max-width);
   margin-inline: auto;
 

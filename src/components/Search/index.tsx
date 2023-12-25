@@ -62,6 +62,6 @@ const StyledSearchIcon = styled.svg`
   pointer-events: none;
 
   path {
-    stroke: var(--clr-accent-purple);
+    stroke: var(--clr-accent);
   }
 `;

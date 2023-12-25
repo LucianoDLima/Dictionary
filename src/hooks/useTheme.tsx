@@ -17,7 +17,7 @@ const ThemeUpdateContext = createContext<() => void>(() => {});
 /**
  * Hook to get the current theme state
  *
- * @throws {Error} Throws an error if used outside a ThemeProvider
+ * @throws {Error} Throw error if used outside a ThemeProvider
  * @returns {ThemeContextProps} The current theme state
  */
 export function useTheme(): ThemeContextProps {
@@ -33,7 +33,7 @@ export function useTheme(): ThemeContextProps {
 /**
  * Hook to get the function for updating the theme
  *
- * @throws {Error} Throws an error if used outside a ThemeProvider
+ * @throws {Error} Throw error if used outside a ThemeProvider
  * @returns {() => void} The function for updating the theme
  */
 export function useThemeUpdate(): () => void {
