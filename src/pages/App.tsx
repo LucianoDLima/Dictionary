@@ -10,10 +10,10 @@ function App() {
       <Styles />
       <ThemeProvider>
         <Header />
-        <Search />
-        <h1 className='screen-reader'>Dictionary application</h1>
-        <Body />
       </ThemeProvider>
+      <Search />
+      <h1 className='screen-reader'>Dictionary application</h1>
+      <Body />
     </>
   );
 }

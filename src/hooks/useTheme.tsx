@@ -63,7 +63,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (!localStorage.getItem('preferredTheme')) {
       setDarkTheme(prefersDarkMode);
     }
-  }, []);
+  }, [darkTheme]);
 
   // Save theme to local storage whenever it changes
   useEffect(() => {
