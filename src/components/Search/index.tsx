@@ -1,11 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useDictionaryContext } from '../../hooks/useDictionary';
 import { fetchWord } from '../../service/api';
 
 type InvalidWordType = {
   $isInvalid: boolean;
-}
+};
 
 /**
  * Handle user input, fetching the word searched and populating the dictionary context with the retrieved data
@@ -56,7 +56,12 @@ function Search() {
     return true;
   }
 
-  async function handleSearchButton(): Promise<void> {
+  /**
+   * Handle fetching data from the API
+   *
+   * @returns {Promise<void>}
+   */
+  async function handleDataFetching(): Promise<void> {
     if (!handleInvalidInput()) return;
 
     try {
@@ -75,6 +80,20 @@ function Search() {
     }
   }
 
+  /**
+   * Fire the data fetching function
+   *
+   * @param {KeyboardEvent<HTMLInputElement>} e - Enter key press
+   * @returns {Promise<void> | void}
+   */
+  function handleSearchButtonOnKeyPress(e: KeyboardEvent<HTMLInputElement>): Promise<void> | void {
+    const keyPress = e.key === 'Enter';
+
+    if (!keyPress) return;
+
+    return handleDataFetching();
+  }
+
   return (
     <>
       <StyledContainer>
@@ -82,13 +101,14 @@ function Search() {
           type='text'
           id='search'
           onChange={handleInputValue}
+          onKeyUp={handleSearchButtonOnKeyPress}
           aria-label='Search'
           $isInvalid={handleInvalidWordBorderStyle()}
         />
 
         <StyledButton
           aria-label='Search'
-          onClick={handleSearchButton}
+          onClick={handleDataFetching}
           tabIndex={-1}
         >
           <StyledSearchIcon
