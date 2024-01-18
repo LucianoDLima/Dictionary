@@ -2,6 +2,12 @@ import styled from 'styled-components';
 import ThemeToggle from './ThemeToggle';
 import FontToggle from './FontToggle';
 
+/**
+ * Wrapper for the Font and Theme toggles
+ *
+ * @returns {JSX.Element}
+ */
+
 function ThemeContainer() {
   return (
     <StyledContainer>

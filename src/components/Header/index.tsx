@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { device } from '../../styles/MediaQuery';
-import ThemeContainer from '../ToggleContainer';
+import ThemeContainer from './ToggleContainer';
 
 function Header() {
   return (

@@ -1,35 +1,23 @@
 import styled from 'styled-components';
-import { useTheme, useThemeUpdate } from '../../../hooks/useTheme';
+import { useTheme, useThemeUpdate } from '../../hooks/useTheme';
+
+/**
+ *  Handle the logic given by the useTheme context to switch between light and dark themes
+ *
+ * @returns {JSX.Element} 
+ */
 
 function ThemeToggle() {
   const { darkTheme } = useTheme();
   const toggleTheme = useThemeUpdate();
 
-  /**
-   * Change theme when pressing enter key
-   *
-   * @param e - Enter key
-   */
-  function handleKeyPressThemeChange(e: React.KeyboardEvent<HTMLButtonElement>): void {
-    const keyPress = e.key === 'Enter'
-    
-    if (!keyPress) {
-      toggleTheme();
-    }
-  }
-
   return (
     <StyledContainer>
       <StyledRectangle
         onClick={toggleTheme}
-        onKeyUp={() => handleKeyPressThemeChange}
         direction={darkTheme ? '60%' : '10%'}
       >
-        <p
-          className='screen-reader'
-        >
-          Theme Switch
-        </p>
+        <p className='screen-reader'>Theme Switch</p>
       </StyledRectangle>
 
       <StyledMoon
@@ -51,8 +39,8 @@ function ThemeToggle() {
 export default ThemeToggle;
 
 type DirectionType = {
-  direction: '60%' | '10%'
-}
+  direction: '60%' | '10%';
+};
 
 const StyledContainer = styled.span`
   align-items: center;

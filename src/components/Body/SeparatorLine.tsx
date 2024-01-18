@@ -1,19 +1,26 @@
 import styled from 'styled-components';
 
-type PartOfSpeechProps = {
-  speech: string | null;
-}
+type SeparatorLineProps = {
+  text?: string;
+};
 
-function PartOfSpeech({speech}: PartOfSpeechProps) {
+/**
+ * Display a line that separates items
+ *
+ * @param {SourceUrlProps} props - Optional. If true, the line will not be 100% of its witdth to accomodate the text
+ * @returns {JSX.Element}
+ */
+
+function SeparatorLine({ text }: SeparatorLineProps) {
   return (
     <StyledContainer>
-      <p>{speech}</p>
+      {text !== undefined ? <p>{text}</p> : null}
       <span />
     </StyledContainer>
   );
 }
 
-export default PartOfSpeech;
+export default SeparatorLine;
 
 const StyledContainer = styled.div`
   align-items: center;

@@ -1,34 +1,58 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useDictionaryContext } from '../../hooks/useDictionary';
 import { fetchWord } from '../../service/api';
 
-interface InvalidWordType {
+type InvalidWordType = {
   $isInvalid: boolean;
 }
+
+/**
+ * Handle user input, fetching the word searched and populating the dictionary context with the retrieved data
+ *
+ * @returns {JSX.Element}
+ */
 
 function Search() {
   const [inputValue, setInputValue] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean | undefined>(undefined);
   const { setDictionary } = useDictionaryContext();
 
-  function handleInputValue(e: React.ChangeEvent<HTMLInputElement>): void {
+  /**
+   * Store the user input
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Change as user types
+   */
+  function handleInputValue(e: ChangeEvent<HTMLInputElement>): void {
     const targetValue = e.target.value;
 
     setInputValue(targetValue);
   }
 
+  /**
+   * Check if invalid border style should be applied to search input
+   *
+   * @returns {boolean} - True: Don't apply. False: Apply
+   */
   function handleInvalidWordBorderStyle(): boolean {
     if (isValid === undefined) return false;
 
     return isValid ? false : true;
   }
 
+  /**
+   * Check if the user hasn't typed anything (null) or has deleted the input value ('')
+   *
+   * @returns {boolean}
+   */
   function handleInvalidInput(): boolean {
-    if (inputValue === null || inputValue === '') {
+    const isValidInput = inputValue === null || inputValue === '';
+
+    if (isValidInput) {
       setIsValid(false);
       return false;
     }
+
     return true;
   }
 

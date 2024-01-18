@@ -1,6 +1,12 @@
 import styled from 'styled-components';
-import { device } from '../../../styles/MediaQuery';
-import { useDictionaryContext } from '../../../hooks/useDictionary';
+import { device } from '../../styles/MediaQuery';
+import { useDictionaryContext } from '../../hooks/useDictionary';
+
+/**
+ * Display the container that holds the given word, its pronunciation button and phonetic writing
+ *
+ * @returns {JSX.Element}
+ */
 
 function Word() {
   const { dictionary } = useDictionaryContext();
@@ -11,6 +17,7 @@ function Word() {
         <StyledHeading>{dictionary[0].word}</StyledHeading>
         <StyledPronunciation>{dictionary[0].phonetic}</StyledPronunciation>
       </div>
+
       <button aria-label='Play pronunciation'>
         <img
           src='images/icon-play.svg'

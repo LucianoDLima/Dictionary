@@ -1,6 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BaseStyle } from '../../../styles/GlobalStyles';
+import { BaseStyle } from '../../styles/GlobalStyles';
+
+/**
+ *  Handle and display the select font button
+ *
+ * @returns {JSX.Element} - Only renders if dictionary array is not empty
+ */
 
 function FontToggle() {
   const [font, setFont] = useState('');
@@ -30,6 +36,12 @@ function FontToggle() {
     }
   }, [font]);
 
+  const fontOptions = [
+    { value: 'var(--fm-primary)', label: 'Sans Serif' },
+    { value: 'var(--fm-secondary)', label: 'Serif' },
+    { value: 'var(--fm-tertiary)', label: 'Mono' },
+  ];
+
   return (
     <>
       <BaseStyle selectedFont={font} />
@@ -41,9 +53,14 @@ function FontToggle() {
           onChange={changeFontFamily}
           aria-label='Change font family'
         >
-          <option value='var(--fm-primary)'>Sans Serif</option>
-          <option value='var(--fm-secondary)'>Serif</option>
-          <option value='var(--fm-tertiary)'>Mono</option>
+          {fontOptions.map((option, index) => (
+            <option
+              key={index}
+              value={option.value}
+            >
+              {option.label}
+            </option>
+          ))}
         </StyledSelect>
         <StyledArrow
           xmlns='http://www.w3.org/2000/svg'
@@ -64,7 +81,7 @@ export default FontToggle;
 
 const StyledContainer = styled.div`
   --font-selector: 6.125rem;
-  
+
   align-items: center;
   display: flex;
   position: relative;
