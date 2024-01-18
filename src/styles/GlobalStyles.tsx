@@ -2,19 +2,20 @@ import { createGlobalStyle } from 'styled-components';
 
 export const ResetStyle = createGlobalStyle`
   * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
   }
 
   button, 
   select,
-  option {
+  option,
+  input {
     background-color: unset;
     border: unset;
-    font-size: inherit;
-    font-family: inherit;
     color: inherit;
+    font-family: inherit;
+    font-size: inherit;
   }
 
   img {
@@ -33,8 +34,8 @@ export const BaseStyle = createGlobalStyle<{ selectedFont?: string }>`
   /* Hide element from dom. Screen readers can still read it */
   .screen-reader {
   border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
+  clip: rect(1px, 1px, 1px, 1px);
   height: 1px;
   margin: -1px;
   overflow: hidden;
@@ -80,6 +81,7 @@ export const VariablesStyle = createGlobalStyle`
     --fs-heading-M: 1.5rem;
     --fs-heading-S: 1.25rem;
     --fs-body-M: 1.125rem;
+    --fs-default: 1rem;
     --fs-body-S: 0.9375rem;
     --fs-body-XS: 0.875rem;
 
@@ -97,11 +99,12 @@ export const ThemeStyle = createGlobalStyle`
     --clr-bg-secondary: var(--wild-sand);
     --clr-bg-tertiary: _;
     --clr-body-primary: var(--mine-shaft--medium);
-    --clr-body-secondary: var(--boulder);
+    --clr-body-secondary: var(--boulder); 
     --clr-accent: var(--medium-purple);
     --clr-error: var(--sunset-orange);
     --clr-bg-toggle: var(--boulder);
     --clr-button-toggle: var(--white);
+    --clr-outline-accessibility: var(--black);
   }
 
   [data-theme="dark"] {
@@ -114,5 +117,6 @@ export const ThemeStyle = createGlobalStyle`
     --clr-error: var(--sunset-orange);
     --clr-bg-toggle: var(--medium-purple);
     --clr-button-toggle: var(--white);
+    --clr-outline-accessibility: var(--white);
   }
 `;

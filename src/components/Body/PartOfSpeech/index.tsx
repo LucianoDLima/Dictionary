@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-type PartOfSpeechType = {
-  speech: string;
-};
+type PartOfSpeechProps = {
+  speech: string | null;
+}
 
-function PartOfSpeech({ speech }: PartOfSpeechType) {
+function PartOfSpeech({speech}: PartOfSpeechProps) {
   return (
     <StyledContainer>
       <p>{speech}</p>
@@ -16,13 +16,19 @@ function PartOfSpeech({ speech }: PartOfSpeechType) {
 export default PartOfSpeech;
 
 const StyledContainer = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 1rem;
+  margin-block: 1.75rem;
+
+  p {
+    font-size: var(--fs-body-M);
+    font-weight: 700;
+  }
 
   span {
-    width: 100%;
     background-color: var(--clr-bg-secondary);
     height: 1px;
+    width: 100%;
   }
 `;

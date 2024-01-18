@@ -21,12 +21,12 @@ export default Header;
 
 const StyledHeader = styled.header`
   display: flex;
-  justify-content: space-between;
-  padding-inline: var(--p-mobile);
-  margin-block: var(--p-mobile);
   font-size: var(--fs-body-XS);
-  max-width: var(--w-max-width);
+  justify-content: space-between;
+  margin-block: var(--p-mobile);
   margin-inline: auto;
+  max-width: var(--w-max-width);
+  padding-inline: var(--p-mobile);
 
   & > div:first-child {
     display: flex;

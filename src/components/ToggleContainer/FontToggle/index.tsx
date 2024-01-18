@@ -34,18 +34,12 @@ function FontToggle() {
     <>
       <BaseStyle selectedFont={font} />
 
-      <label
-        className='screen-reader'
-        htmlFor='select'
-      >
-        Change font family
-      </label>
-
       <StyledContainer>
         <StyledSelect
           id='select'
           value={font}
           onChange={changeFontFamily}
+          aria-label='Change font family'
         >
           <option value='var(--fm-primary)'>Sans Serif</option>
           <option value='var(--fm-secondary)'>Serif</option>
@@ -69,20 +63,21 @@ function FontToggle() {
 export default FontToggle;
 
 const StyledContainer = styled.div`
-  position: relative;
-  display: flex;
+  --font-selector: 6.125rem;
+  
   align-items: center;
-  width: 6.125rem;
+  display: flex;
+  position: relative;
+  width: var(--font-selector);
 `;
 
 const StyledArrow = styled.svg`
+  pointer-events: none;
   position: absolute;
-  top: 50%;
   right: 0;
+  top: 50%;
   transform: translateY(-50%);
   width: 0.813rem;
-  height: 0.563rem;
-  pointer-events: none;
 
   path {
     stroke: var(--clr-accent);
@@ -90,12 +85,12 @@ const StyledArrow = styled.svg`
 `;
 
 const StyledSelect = styled.select`
-  width: 100%;
-  height: 100%;
-  -webkit-appearance: none;
   -moz-appearance: none;
+  -webkit-appearance: none;
   appearance: none;
   font-weight: 700;
+  height: 100%;
+  width: 100%;
 
   option {
     background-color: var(--clr-bg-secondary);

@@ -28,6 +28,6 @@ const StyledLine = styled.hr`
 `;
 
 const StyledButtonContainer = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
 `;

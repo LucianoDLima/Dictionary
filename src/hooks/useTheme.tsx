@@ -8,43 +8,9 @@ type ThemeContextProps = {
   darkTheme: boolean;
 };
 
-// Context to provide the theme state
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
-// Context to provide the function for updating the theme
 const ThemeUpdateContext = createContext<() => void>(() => {});
-
-/**
- * Hook to get the current theme state
- *
- * @throws {Error} Throw error if used outside a ThemeProvider
- * @returns {ThemeContextProps} The current theme state
- */
-export function useTheme(): ThemeContextProps {
-  const context = useContext(ThemeContext);
-
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-
-  return context;
-}
-
-/**
- * Hook to get the function for updating the theme
- *
- * @throws {Error} Throw error if used outside a ThemeProvider
- * @returns {() => void} The function for updating the theme
- */
-export function useThemeUpdate(): () => void {
-  const context = useContext(ThemeUpdateContext);
-
-  if (!context) {
-    throw new Error('useThemeUpdate must be used within a ThemeProvider');
-  }
-
-  return context;
-}
 
 /**
  * Component to wrap the app and manage the theme preferences
@@ -76,7 +42,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setDarkTheme((prevDarkTheme) => !prevDarkTheme);
   }
 
-   // Context value to be passed to ThemeContext
+  // Context value to be passed to ThemeContext
   const contextValue: ThemeContextProps = {
     darkTheme,
   };
@@ -86,4 +52,36 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       <ThemeUpdateContext.Provider value={toggleTheme}>{children}</ThemeUpdateContext.Provider>
     </ThemeContext.Provider>
   );
+}
+
+/**
+ * Hook to get the current theme state
+ *
+ * @throws {Error} - if used outside a ThemeProvider
+ * @returns {ThemeContextProps} - The current theme state
+ */
+export function useTheme(): ThemeContextProps {
+  const context = useContext(ThemeContext);
+
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+
+  return context;
+}
+
+/**
+ * Hook to get the function for updating the theme
+ *
+ * @throws {Error} Throw error if used outside a ThemeProvider
+ * @returns {() => void} The function for updating the theme
+ */
+export function useThemeUpdate(): () => void {
+  const context = useContext(ThemeUpdateContext);
+
+  if (!context) {
+    throw new Error('useThemeUpdate must be used within a ThemeProvider');
+  }
+
+  return context;
 }

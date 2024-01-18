@@ -1,18 +1,29 @@
-import Wrapper from '../../components/Wrapper';
-import Word from '../../components/Word';
-import PartOfSpeech from '../../components/PartOfSpeech';
-import Meaning from '../Meaning';
+import Word from './Word';
+import Meaning from './Meaning';
+import { useDictionaryContext } from '../../hooks/useDictionary';
+import styled from 'styled-components';
 
 function Body() {
+  const { dictionary } = useDictionaryContext();
+
   return (
-    <Wrapper>
-      <Word />
-      <PartOfSpeech speech='noun' />
-      <Meaning>
-        <li>Placeholder</li>
-      </Meaning>
-    </Wrapper>
+    <>
+      {dictionary ? (
+        <StyledContainer>
+          <Word />
+          <div>
+            <Meaning />
+          </div>
+        </StyledContainer>
+      ) : null}
+    </>
   );
 }
 
 export default Body;
+
+const StyledContainer = styled.main`
+  max-width: var(--w-max-width);
+  margin-inline: auto;
+  padding-inline: var(--p-mobile);
+`;

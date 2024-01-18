@@ -1,18 +1,22 @@
 type SizeTypes = {
-  mobile: string;
-  tablet: string;
-  laptop: string;
-  desktop: string;
-}
+  mobile: `${number}rem`;
+  tablet: `${number}rem`;
+  laptop: `${number}rem`;
+  desktop: `${number}rem`;
+};
 
 const size: SizeTypes = { 
   mobile: '23.438rem',
   tablet: '46rem',
   laptop: '64rem',
-  desktop: '90'
+  desktop: '90rem'
 }
 
-export const device = {
+type DeviceTypes = {
+  [key in keyof SizeTypes]: `(min-width: ${SizeTypes[key]})`;
+};
+
+export const device: DeviceTypes = {
   mobile: `(min-width: ${size.mobile})`,
   tablet: `(min-width: ${size.tablet})`,
   laptop: `(min-width: ${size.laptop})`,

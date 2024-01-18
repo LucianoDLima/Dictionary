@@ -11,7 +11,9 @@ function ThemeToggle() {
    * @param e - Enter key
    */
   function handleKeyPressThemeChange(e: React.KeyboardEvent<HTMLButtonElement>): void {
-    if (e.key === 'Enter') {
+    const keyPress = e.key === 'Enter'
+    
+    if (!keyPress) {
       toggleTheme();
     }
   }
@@ -48,39 +50,45 @@ function ThemeToggle() {
 
 export default ThemeToggle;
 
+type DirectionType = {
+  direction: '60%' | '10%'
+}
+
 const StyledContainer = styled.span`
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 0.5rem;
 `;
 
-const StyledRectangle = styled.button<{ direction: string }>`
+const StyledRectangle = styled.button<DirectionType>`
+  background-color: var(--clr-bg-toggle);
+  border-radius: 5rem;
+  cursor: pointer;
+  padding: 0.55rem;
   position: relative;
   width: 2.35rem;
-  padding: 0.55rem;
-  border-radius: 5rem;
-  background-color: var(--clr-bg-toggle);
-  cursor: pointer;
 
   &::after {
     --circle-size: 0.75rem;
     content: '';
-    position: absolute;
-    width: var(--circle-size);
-    height: var(--circle-size);
+
     background-color: white;
     border-radius: 50%;
+    height: var(--circle-size);
+    left: ${(props) => props.direction};
+    position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: ${(props) => props.direction};
     transition: 250ms;
+    width: var(--circle-size);
   }
 `;
 
 const StyledMoon = styled.svg`
   --moon-size: 1.375rem;
-  width: var(--moon-size);
+
   height: var(--moon-size);
+  width: var(--moon-size);
 
   path {
     stroke: var(--clr-bg-toggle);

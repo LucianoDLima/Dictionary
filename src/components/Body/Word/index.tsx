@@ -1,17 +1,20 @@
 import styled from 'styled-components';
-import { device } from '../../styles/MediaQuery';
+import { device } from '../../../styles/MediaQuery';
+import { useDictionaryContext } from '../../../hooks/useDictionary';
 
 function Word() {
+  const { dictionary } = useDictionaryContext();
+
   return (
     <StyledContainer>
       <div>
-        <StyledHeading>Keyboard</StyledHeading>
-        <StyledPronunciation>/ˈkiːbɔːd/</StyledPronunciation>
+        <StyledHeading>{dictionary[0].word}</StyledHeading>
+        <StyledPronunciation>{dictionary[0].phonetic}</StyledPronunciation>
       </div>
-      <button >
+      <button aria-label='Play pronunciation'>
         <img
           src='images/icon-play.svg'
-          alt='Play button'
+          alt=''
         />
       </button>
     </StyledContainer>
@@ -21,10 +24,12 @@ function Word() {
 export default Word;
 
 const StyledContainer = styled.div`
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  max-width: var(--w-max-width);
+  margin-block: 1.75rem;
   margin-inline: auto;
+  max-width: var(--w-max-width);
 
   button {
     cursor: pointer;
@@ -36,7 +41,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledHeading = styled.p`
+const StyledHeading = styled.h2`
   font-size: var(--fs-heading-L);
   text-transform: lowercase;
 
@@ -46,7 +51,7 @@ const StyledHeading = styled.p`
 `;
 
 const StyledPronunciation = styled.p`
+  color: var(--clr-accent);
   font-family: sans-serif, var(--fm-auto);
   font-size: var(--fs-body-M);
-  color: var(--clr-accent);
 `;

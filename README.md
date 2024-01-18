@@ -9,6 +9,7 @@ This is a solution to the [Dictionary web app challenge on Frontend Mentor](http
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
+  - [Need to fix](#need-to-fix)
   - [Useful resources](#useful-resources)
 
 ## Overview
@@ -39,3 +40,5 @@ This app is a dictionary tool that allows users to look up definitions of words.
 - [Styled Components documentation](https://styled-components.com/docs) - Useful for understanding how to correctly work with styled components
 - [Chir.ag](https://chir.ag/projects/name-that-color/#6195ED) - A tool to name colors
 - [Nekocalc](https://nekocalc.com/px-to-rem-converter) - A tool to convert pixel unit to rem unit (and vice versa)
+- [React typescript cheatsheet](https://react-typescript-cheatsheet.netlify.app/) - Useful for understanding typescript better
+- [Type JSON](https://transform.tools/json-to-typescript) - Automatically type a JSON object
