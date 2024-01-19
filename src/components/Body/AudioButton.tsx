@@ -29,27 +29,31 @@ function AudioButton() {
   }
 
   return (
-    <StyledContainer>
-      {dictionary[0].phonetics.map((phonetic: PhoneticsInterface, index: number) =>
-        phonetic.audio !== '' ? (
-          <StyledButtonWrapper key={index}>
-            <StyledCountry>{getPhoneticOrigin(phonetic.audio)}</StyledCountry>
+    <>
+      {dictionary[0].phonetics[0] ? (
+        <StyledContainer>
+          {dictionary[0].phonetics.map((phonetic: PhoneticsInterface, index: number) =>
+            phonetic.audio !== '' ? (
+              <StyledButtonWrapper key={index}>
+                <StyledCountry>{getPhoneticOrigin(phonetic.audio)}</StyledCountry>
 
-            <StyledButton
-              aria-label='Play pronunciation'
-              onClick={() => playAudio(phonetic.audio)}
-            >
-              <img
-                src='images/icon-play.svg'
-                alt=''
-              />
-            </StyledButton>
+                <StyledButton
+                  aria-label='Play pronunciation'
+                  onClick={() => playAudio(phonetic.audio)}
+                >
+                  <img
+                    src='images/icon-play.svg'
+                    alt=''
+                  />
+                </StyledButton>
 
-            <StyledPronunciation>{phonetic.text}</StyledPronunciation>
-          </StyledButtonWrapper>
-        ) : null
-      )}
-    </StyledContainer>
+                <StyledPronunciation>{phonetic.text}</StyledPronunciation>
+              </StyledButtonWrapper>
+            ) : null
+          )}
+        </StyledContainer>
+      ) : null}
+    </>
   );
 }
 

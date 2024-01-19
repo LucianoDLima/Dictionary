@@ -23,7 +23,7 @@ function DefinitionList({ definitions }: DefinitionListProps) {
         <li key={definitionIndex}>
           <div>
             <StyledDefinition>{definition.definition}</StyledDefinition>
-            {definition.example ? <StyledExample as='blockquote'>"{definition.example}"</StyledExample> : null}
+            {definition.example ? <StyledExample as='p'>"{definition.example}"</StyledExample> : null}
           </div>
         </li>
       ))}

@@ -30,12 +30,11 @@ function MeaningTerm({ title, terms }: MeaningTermProps) {
     const clickedWordCorrected = clickedWord?.endsWith(',') ? clickedWord.slice(0, -1) : clickedWord;
 
     const result = await handleFetchedData(clickedWordCorrected!, setDictionary);
-    
-    if(result === 404) {
+
+    if (result === 404) {
       console.log(result);
-      return
+      return;
     }
-    
 
     return result;
   }
@@ -70,6 +69,19 @@ const StyledContainer = styled.div`
   button {
     color: var(--clr-accent);
     cursor: pointer;
+
+    background-image: linear-gradient(90deg, var(--clr-accent), var(--clr-accent));
+    background-position: left 1.4em;
+    background-repeat: no-repeat;
+    background-size: 0% 15px;
+    padding-block-end: 0.25em;
+    transition: background-size var(--spe-quick), opacity var(--spe-quick) ease-in;
+
+    &:hover,
+    &:focus {
+      background-size: 100% 3px;
+      opacity: 0.9;
+    }
   }
 `;
 

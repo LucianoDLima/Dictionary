@@ -92,6 +92,12 @@ export const VariablesStyle = createGlobalStyle`
 
     /* -- Widths -- */
     --w-max-width: 46rem;
+
+    /* -- Animation speed -- */
+    --spe-very-quick: 175ms;
+    --spe-quick: 250ms;
+    --spe-slow: 325ms;
+    --spe-very-slow: 450ms; 
   }
 `;
 
