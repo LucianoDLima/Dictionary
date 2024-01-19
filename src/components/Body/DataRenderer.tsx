@@ -28,17 +28,19 @@ function DataRenderer() {
 
               <DefinitionList definitions={meaning.definitions} />
 
-              <StyledTermsContainer>
-                <MeaningTerm
-                  title='Antonym'
-                  terms={meaning.antonyms}
-                />
+              {meaning.antonyms.length || meaning.synonyms.length ? (
+                <StyledTermsContainer>
+                  <MeaningTerm
+                    title='Antonym'
+                    terms={meaning.antonyms}
+                  />
 
-                <MeaningTerm
-                  title='Synonym'
-                  terms={meaning.synonyms}
-                />
-              </StyledTermsContainer>
+                  <MeaningTerm
+                    title='Synonym'
+                    terms={meaning.synonyms}
+                  />
+                </StyledTermsContainer>
+              ) : null}
             </StyledContainer>
           ))}
         </div>
