@@ -29,8 +29,8 @@ function Body() {
 export default Body;
 
 const StyledContainer = styled.main`
-  max-width: var(--w-max-width);
   margin-inline: auto;
-  padding-inline: var(--p-mobile);
+  max-width: var(--w-max-width);
   padding-bottom: 3rem;
+  padding-inline: var(--p-mobile);
 `;

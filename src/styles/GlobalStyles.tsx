@@ -60,7 +60,9 @@ export const VariablesStyle = createGlobalStyle`
     --white: hsl(0, 0%, 100%);
     --wild-sand: hsl(0, 0%, 96%);
     --mercury: hsl(0, 0%, 91%);
+    --alto: hsl(0, 0%, 81%);
     --boulder: hsl(0, 0%, 51%);
+    --gray: hsl(0, 0%, 40%);
     --mine-shaft--hard: hsl(0, 0%, 23%);
     --mine-shaft--medium: hsl(0, 0%, 18%);
     --mine-shift--soft: hsl(0, 0%, 12%);
@@ -97,9 +99,9 @@ export const ThemeStyle = createGlobalStyle`
   [data-theme="light"] {
     --clr-bg-primary: var(--white);
     --clr-bg-secondary: var(--wild-sand);
-    --clr-bg-tertiary: _;
+    --clr-bg-tertiary: var(--alto);
     --clr-body-primary: var(--mine-shaft--medium);
-    --clr-body-secondary: var(--boulder); 
+    --clr-body-secondary: var(--gray); 
     --clr-accent: var(--medium-purple);
     --clr-error: var(--sunset-orange);
     --clr-bg-toggle: var(--boulder);

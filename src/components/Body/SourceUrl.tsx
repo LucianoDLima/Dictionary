@@ -35,11 +35,11 @@ export default SourceUrl;
 // TODO: Move the url underline slightly below and add a gradient color when you hover over it, theres a youtube video on it in my history from 2 days ago by kevin
 
 const StyledSubTitle = styled(StyledHeading)`
-  text-decoration: underline;
   margin-bottom: 0.5rem;
+  text-decoration: underline;
 `;
 
 const StyledUrl = styled.a`
-  text-decoration-color: blue;
   color: var(--clr-body-primary);
+  text-decoration-color: blue;
 `;

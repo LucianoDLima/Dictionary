@@ -66,8 +66,8 @@ const StyledTitle = styled(StyledHeading)`
 `;
 
 const StyledTermsContainer = styled.div`
-  margin-block: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  margin-block: 2rem;
 `;

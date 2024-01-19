@@ -34,7 +34,7 @@ const StyledContainer = styled.div`
   }
 
   span {
-    background-color: var(--clr-bg-secondary);
+    background-color: var(--clr-bg-tertiary);
     height: 1px;
     width: 100%;
   }

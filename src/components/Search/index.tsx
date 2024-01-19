@@ -66,12 +66,12 @@ function Search() {
     if (!handleInvalidInput()) return;
 
     const result = await handleFetchedData(inputValue!, setDictionary);
-    
+
     if (result === 404) {
       setIsValid(false);
       return;
     }
-    
+
     setIsValid(true);
 
     return result;
@@ -106,7 +106,6 @@ function Search() {
         <StyledButton
           aria-label='Search'
           onClick={handleDataFetching}
-          tabIndex={-1}
         >
           <StyledSearchIcon
             xmlns='http://www.w3.org/2000/svg'
@@ -131,8 +130,10 @@ export default Search;
 const StyledContainer = styled.div`
   --input-border: 1rem;
   --isError: 1px solid var(--clr-error);
+  --input-padding: 1rem;
 
   display: flex;
+  gap: 0.25rem;
   margin-inline: auto;
   max-width: var(--w-max-width);
   padding-inline: var(--p-mobile);
@@ -142,6 +143,11 @@ const StyledContainer = styled.div`
 const StyledInput = styled.input<InvalidWordType>`
   background-color: var(--clr-bg-secondary);
   border-radius: var(--input-border);
+  color: inherit;
+  font-family: inherit;
+  padding: var(--input-padding);
+  width: 100%;
+
   ${(props) =>
     props.$isInvalid &&
     css`
@@ -151,25 +157,19 @@ const StyledInput = styled.input<InvalidWordType>`
         outline-color: var(--clr-outline-accessibility);
       }
     `}
-  color: inherit;
-  font-family: inherit;
-  padding: 1rem;
-  width: 100%;
 `;
 
 const StyledButton = styled.button`
   align-items: center;
   background-color: var(--clr-accent);
-  border-bottom-right-radius: var(--input-border);
-  border-top-right-radius: var(--input-border);
+  border-radius: 50%;
   bottom: 0;
   cursor: pointer;
   display: flex;
   justify-content: center;
-  position: absolute;
+  padding: var(--input-padding);
   right: var(--p-mobile);
   top: 0;
-  width: 3rem;
 
   &:hover,
   &:focus {
@@ -182,7 +182,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledSearchIcon = styled.svg`
-  --search-icon-width: 1rem;
+  --search-icon-width: var(--input-padding);
 
   height: var(--search-icon-width);
   pointer-events: none;
