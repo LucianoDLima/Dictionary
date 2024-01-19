@@ -1,19 +1,24 @@
-export type FetchedDataType = Promise<void | number>
+export type FetchedDataType = Promise<void | number>;
 
-interface Definition {
+interface DefinitionInterface {
   definition: string;
   example: string;
 }
 
-interface Meaning {
+interface MeaningInterface {
   partOfSpeech: string;
-  definitions: Definition[];
+  definitions: DefinitionInterface[];
   synonyms: string[];
   antonyms: string[];
 }
 
+export interface PhoneticsInterface {
+  text: string;
+  audio: string;
+}
+
 export type DictionaryType = {
   word: string;
-  phonetic: string;
-  meanings: Meaning[];
-}
+  meanings: MeaningInterface[];
+  phonetics: PhoneticsInterface[];
+};
