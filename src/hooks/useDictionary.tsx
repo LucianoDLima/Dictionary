@@ -3,26 +3,9 @@
  */
 
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
+import { DictionaryType } from '../types';
 
-interface Definition {
-  definition: string;
-  example: string;
-}
-
-interface Meaning {
-  partOfSpeech: string;
-  definitions: Definition[];
-  synonyms: string[];
-  antonyms: string[];
-}
-
-export interface DictionaryInterface {
-  word: string;
-  phonetic: string;
-  meanings: Meaning[];
-}
-
-type ContextHelperType = DictionaryInterface | undefined
+type ContextHelperType = DictionaryType | undefined
 
 type ContextType = {
   dictionary: ContextHelperType
@@ -39,7 +22,7 @@ type DictionaryProviderProps = {
  * Provider to fill up the state that will be used after the dictionary api is initialized
  */
 export const DictionaryProvider = ({ children }: DictionaryProviderProps): ReactNode => {
-  const [dictionary, setDictionary] = useState<DictionaryInterface>();
+  const [dictionary, setDictionary] = useState<DictionaryType>();
 
   return <DictionaryContext.Provider value={{ dictionary, setDictionary }}>{children}</DictionaryContext.Provider>;
 };

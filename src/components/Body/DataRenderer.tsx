@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { DictionaryInterface, useDictionaryContext } from '../../hooks/useDictionary';
+import { useDictionaryContext } from '../../hooks/useDictionary';
 import SeparatorLine from './SeparatorLine';
 import SourceUrl from './SourceUrl';
 import { StyledHeading } from '../../styles/SharedStyles';
 import DefinitionList from './DefinitionList';
 import MeaningTerm from './MeaningTerm';
+import { DictionaryType } from '../../types';
 
 /**
  * Render and distribute data fetched from the API to other components
@@ -17,7 +18,7 @@ function DataRenderer() {
 
   return (
     <>
-      {dictionary.map((dictionaryData: DictionaryInterface, index: number) => (
+      {dictionary.map((dictionaryData: DictionaryType, index: number) => (
         <div key={index}>
           {dictionaryData.meanings.map((meaning, dataIndex) => (
             <StyledContainer key={dataIndex}>

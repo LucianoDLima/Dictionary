@@ -1,7 +1,8 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useDictionaryContext } from '../../hooks/useDictionary';
-import { fetchWord } from '../../service/api';
+import { handleFetchedData } from '../../service/api';
+import { FetchedDataType } from '../../types';
 
 type InvalidWordType = {
   $isInvalid: boolean;
@@ -41,7 +42,7 @@ function Search() {
   }
 
   /**
-   * Check if the user hasn't typed anything (null) or has deleted the input value ('')
+   * Check if user hasn't typed anything (null) or has deleted the input value ('')
    *
    * @returns {boolean}
    */
@@ -59,34 +60,30 @@ function Search() {
   /**
    * Handle fetching data from the API
    *
-   * @returns {Promise<void>}
+   * @returns {FetchedDataType} - It can return the error number
    */
-  async function handleDataFetching(): Promise<void> {
+  async function handleDataFetching(): FetchedDataType {
     if (!handleInvalidInput()) return;
 
-    try {
-      const fetchedData = await fetchWord(inputValue!);
-      console.log(fetchedData);
-
-      if (fetchedData === 404) {
-        setIsValid(false);
-        throw new Error('No words found');
-      }
-
-      setIsValid(true);
-      setDictionary(fetchedData);
-    } catch (error) {
-      console.log(error);
+    const result = await handleFetchedData(inputValue!, setDictionary);
+    
+    if (result === 404) {
+      setIsValid(false);
+      return;
     }
+    
+    setIsValid(true);
+
+    return result;
   }
 
   /**
    * Fire the data fetching function
    *
    * @param {KeyboardEvent<HTMLInputElement>} e - Enter key press
-   * @returns {Promise<void> | void}
+   * @returns {FetchedDataType}
    */
-  function handleSearchButtonOnKeyPress(e: KeyboardEvent<HTMLInputElement>): Promise<void> | void {
+  function handleSearchButtonOnKeyPress(e: KeyboardEvent<HTMLInputElement>): FetchedDataType | void {
     const keyPress = e.key === 'Enter';
 
     if (!keyPress) return;
@@ -98,12 +95,12 @@ function Search() {
     <>
       <StyledContainer>
         <StyledInput
-          type='text'
+          $isInvalid={handleInvalidWordBorderStyle()}
+          aria-label='Search'
           id='search'
           onChange={handleInputValue}
           onKeyUp={handleSearchButtonOnKeyPress}
-          aria-label='Search'
-          $isInvalid={handleInvalidWordBorderStyle()}
+          type='text'
         />
 
         <StyledButton
