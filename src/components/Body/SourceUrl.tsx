@@ -36,10 +36,8 @@ export default SourceUrl;
 
 const StyledSubTitle = styled(StyledHeading)`
   margin-bottom: 0.5rem;
-  text-decoration: underline;
 `;
 
 const StyledUrl = styled.a`
   color: var(--clr-body-primary);
-  text-decoration-color: blue;
 `;

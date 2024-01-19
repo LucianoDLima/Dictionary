@@ -24,7 +24,7 @@ function DataRenderer() {
             <StyledContainer key={dataIndex}>
               <SeparatorLine text={meaning.partOfSpeech} />
 
-              <StyledTitle as='h3'>Meaning</StyledTitle>
+              <StyledTitle as='h4'>Meaning</StyledTitle>
 
               <DefinitionList definitions={meaning.definitions} />
 

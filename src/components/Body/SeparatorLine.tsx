@@ -14,7 +14,7 @@ type SeparatorLineProps = {
 function SeparatorLine({ text }: SeparatorLineProps) {
   return (
     <StyledContainer>
-      {text !== undefined ? <p>{text}</p> : null}
+      {text !== undefined ? <h3>{text}</h3> : null}
       <span />
     </StyledContainer>
   );
@@ -28,9 +28,8 @@ const StyledContainer = styled.div`
   gap: 1rem;
   margin-block: 1.75rem;
 
-  p {
+  h3 {
     font-size: var(--fs-body-M);
-    font-weight: 700;
   }
 
   span {
