@@ -28,6 +28,18 @@ This app is a dictionary tool that allows users to look up definitions of words.
 
 ## My process
 
+### Todo features and fixes
+
+- Some words (**porcelain** for example) have no pronunciation but have the phonetic writing, I need to make so the phonetic writing is rendered even if no audio exists
+
+- Include loading animation when you click an antonym/synonym button
+
+- It is already responsive, but I need to improve the desktop version 
+
+- Handle unkown errors. Only way I found to trigger it is searching a dot '.' 
+
+- Sometimes the underline animation will not start, I think it doesn't happen in production, as the only way to fix it is by changing the css to something random, and then back to the original, it is rare and I have no idea how to trigger the error
+
 ### Built with
 
 - [React](https://reactjs.org/) - JS library

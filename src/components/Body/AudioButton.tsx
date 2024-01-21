@@ -43,7 +43,7 @@ function AudioButton() {
                 >
                   <img
                     src='images/icon-play.svg'
-                    alt=''
+                    alt='Play audio'
                   />
                 </StyledButton>
 

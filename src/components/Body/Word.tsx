@@ -30,6 +30,7 @@ const StyledContainer = styled.div`
   margin-block: 1.5rem;
   margin-inline: auto;
   max-width: var(--w-max-width);
+  word-wrap: break-word;
 `;
 
 const StyledHeading = styled.h2`

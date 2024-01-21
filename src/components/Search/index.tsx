@@ -1,11 +1,15 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useDictionaryContext } from '../../hooks/useDictionary';
 import { handleFetchedData } from '../../service/api';
 import { FetchedDataType } from '../../types';
+import SearchButton from './SearchButton';
+import SearchBox from './SearchBox';
+import Loading from '../Body/Loading';
 
-type InvalidWordType = {
-  $isInvalid: boolean;
+type ValidationState = {
+  isEmpty: boolean | undefined;
+  isValid: boolean | undefined;
 };
 
 /**
@@ -16,7 +20,11 @@ type InvalidWordType = {
 
 function Search() {
   const [inputValue, setInputValue] = useState<string | null>(null);
-  const [isValid, setIsValid] = useState<boolean | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(false)
+  const [validation, setValidation] = useState<ValidationState>({
+    isEmpty: undefined,
+    isValid: undefined,
+  });
   const { setDictionary } = useDictionaryContext();
 
   /**
@@ -36,9 +44,9 @@ function Search() {
    * @returns {boolean} - True: Don't apply. False: Apply
    */
   function handleInvalidWordBorderStyle(): boolean {
-    if (isValid === undefined) return false;
+    if (validation.isValid === undefined) return false;
 
-    return isValid ? false : true;
+    return validation.isValid ? false : true;
   }
 
   /**
@@ -46,11 +54,15 @@ function Search() {
    *
    * @returns {boolean}
    */
-  function handleInvalidInput(): boolean {
-    const isValidInput = inputValue === null || inputValue === '';
+  function handleEmptyValue(): boolean {
+    const isEmpty = inputValue === null || inputValue === '';
 
-    if (isValidInput) {
-      setIsValid(false);
+    if (isEmpty) {
+      setValidation({
+        isValid: false,
+        isEmpty: true,
+      });
+
       return false;
     }
 
@@ -60,19 +72,32 @@ function Search() {
   /**
    * Handle fetching data from the API
    *
-   * @returns {FetchedDataType} - It can return the error number
+   * @returns {FetchedDataType} - Either the data or the number error
    */
   async function handleDataFetching(): FetchedDataType {
-    if (!handleInvalidInput()) return;
+    if (!handleEmptyValue()) return;
+
+    setIsLoading(true)
+    setDictionary(undefined)
 
     const result = await handleFetchedData(inputValue!, setDictionary);
 
+    setIsLoading(false)
+    
     if (result === 404) {
-      setIsValid(false);
+      setValidation({
+        isEmpty: false,
+        isValid: false,
+      });
+      
+      setDictionary(null);
       return;
     }
 
-    setIsValid(true);
+    setValidation({
+      isEmpty: false,
+      isValid: true,
+    });
 
     return result;
   }
@@ -92,36 +117,21 @@ function Search() {
   }
 
   return (
-    <>
-      <StyledContainer>
-        <StyledInput
-          $isInvalid={handleInvalidWordBorderStyle()}
-          aria-label='Search'
-          id='search'
+    <StyledContainer>
+      <StyledWrapper>
+        <SearchBox
+          isError={handleInvalidWordBorderStyle()}
           onChange={handleInputValue}
           onKeyUp={handleSearchButtonOnKeyPress}
-          type='text'
         />
 
-        <StyledButton
-          aria-label='Search'
-          onClick={handleDataFetching}
-        >
-          <StyledSearchIcon
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 18 18'
-          >
-            <path
-              fill='none'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='1.5'
-              d='m12.663 12.663 3.887 3.887M1 7.664a6.665 6.665 0 1 0 13.33 0 6.665 6.665 0 0 0-13.33 0Z'
-            />
-          </StyledSearchIcon>
-        </StyledButton>
-      </StyledContainer>
-    </>
+        <SearchButton onClick={handleDataFetching} />
+      </StyledWrapper>
+
+      {validation.isEmpty && <StyledErrorMessage>Whoops! Can't be empty...</StyledErrorMessage>}
+
+      {isLoading && <Loading />}
+    </StyledContainer>
   );
 }
 
@@ -129,66 +139,24 @@ export default Search;
 
 const StyledContainer = styled.div`
   --input-border: 1rem;
-  --isError: 1px solid var(--clr-error);
   --input-padding: 1rem;
+  --isError: 1px solid var(--clr-error);
 
   display: flex;
+  flex-direction: column;
   gap: 0.25rem;
   margin-inline: auto;
   max-width: var(--w-max-width);
   padding-inline: var(--p-mobile);
-  position: relative;
 `;
 
-const StyledInput = styled.input<InvalidWordType>`
-  background-color: var(--clr-bg-secondary);
-  border-radius: var(--input-border);
-  color: inherit;
-  font-family: inherit;
-  padding: var(--input-padding);
-  width: 100%;
-
-  ${(props) =>
-    props.$isInvalid &&
-    css`
-      outline: var(--isError);
-
-      &:focus {
-        outline-color: var(--clr-outline-accessibility);
-      }
-    `}
-`;
-
-const StyledButton = styled.button`
-  align-items: center;
-  background-color: var(--clr-accent);
-  border-radius: 50%;
-  bottom: 0;
-  cursor: pointer;
+const StyledWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  padding: var(--input-padding);
-  right: var(--p-mobile);
-  top: 0;
-
-  &:hover,
-  &:focus {
-    opacity: 0.8;
-  }
-
-  &:active {
-    opacity: 0.75;
-  }
+  gap: 0.25rem;
 `;
 
-const StyledSearchIcon = styled.svg`
-  --search-icon-width: var(--input-padding);
-
-  height: var(--search-icon-width);
-  pointer-events: none;
-  width: var(--search-icon-width);
-
-  path {
-    stroke: white;
-  }
+const StyledErrorMessage = styled.p`
+  color: var(--clr-error);
+  font-style: italic;
+  font-size: inherit;
 `;

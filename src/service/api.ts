@@ -12,7 +12,7 @@ async function fetchData(word: string): FetchedDataType {
     if (!response.ok) {
       return response.status;
     }
-    
+
     return data;
   } catch (error) {
     console.log(error);
@@ -34,7 +34,7 @@ export async function handleFetchedData(
       return fetchedData;
     }
 
-    if(unkownError) {
+    if (unkownError) {
       throw new Error('Unkown error');
     }
 

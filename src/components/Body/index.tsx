@@ -1,13 +1,14 @@
 import Word from './Word';
-import Meaning from './DataRenderer';
+import WordMeaning from './WordMeaning';
 import { useDictionaryContext } from '../../hooks/useDictionary';
 import styled from 'styled-components';
+import Error from '../Error';
 
 /**
-   *  Wrapper for the components that deal with the dictionary API data usage
-   *
-   * @returns {JSX.Element} - Only renders if dictionary array is not empty
-   */
+ *  Wrapper for the components that deal with the dictionary API data usage
+ *
+ * @returns {JSX.Element} - Only renders if dictionary array is not empty
+ */
 
 function Body() {
   const { dictionary } = useDictionaryContext();
@@ -17,11 +18,11 @@ function Body() {
       {dictionary ? (
         <StyledContainer>
           <Word />
-          <div>
-            <Meaning />
-          </div>
+          <WordMeaning />
         </StyledContainer>
-      ) : null}
+      ) : dictionary === undefined ? null : (
+        <Error />
+      )}
     </>
   );
 }

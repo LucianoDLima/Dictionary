@@ -13,44 +13,42 @@ import { DictionaryType } from '../../types';
  * @returns {JSX.Element}
  */
 
-function DataRenderer() {
+function WordMeaning() {
   const { dictionary } = useDictionaryContext();
 
   return (
     <>
-      {dictionary.map((dictionaryData: DictionaryType, index: number) => (
-        <div key={index}>
-          {dictionaryData.meanings.map((meaning, dataIndex) => (
-            <StyledContainer key={dataIndex}>
-              <SeparatorLine text={meaning.partOfSpeech} />
+      {dictionary.map((dictionaryData: DictionaryType) =>
+        dictionaryData.meanings.map((meaning, dataIndex) => (
+          <StyledContainer key={dataIndex}>
+            <SeparatorLine text={meaning.partOfSpeech} />
 
-              <StyledTitle as='h4'>Meaning</StyledTitle>
+            <StyledTitle as='h4'>Meaning</StyledTitle>
 
-              <DefinitionList definitions={meaning.definitions} />
+            <DefinitionList definitions={meaning.definitions} />
 
-              {meaning.antonyms.length || meaning.synonyms.length ? (
-                <StyledTermsContainer>
-                  <MeaningTerm
-                    title='Antonym'
-                    terms={meaning.antonyms}
-                  />
+            {meaning.antonyms.length || meaning.synonyms.length ? (
+              <StyledTermsContainer>
+                <MeaningTerm
+                  title='Antonym'
+                  terms={meaning.antonyms}
+                />
 
-                  <MeaningTerm
-                    title='Synonym'
-                    terms={meaning.synonyms}
-                  />
-                </StyledTermsContainer>
-              ) : null}
-            </StyledContainer>
-          ))}
-        </div>
-      ))}
+                <MeaningTerm
+                  title='Synonym'
+                  terms={meaning.synonyms}
+                />
+              </StyledTermsContainer>
+            ) : null}
+          </StyledContainer>
+        ))
+      )}
       <SourceUrl url={dictionary[0].sourceUrls[0]} />
     </>
   );
 }
 
-export default DataRenderer;
+export default WordMeaning;
 
 const StyledContainer = styled.div`
   li {
