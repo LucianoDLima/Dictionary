@@ -1,6 +1,6 @@
 # Frontend Mentor - Dictionary web app solution
 
-This is a solution to the [Dictionary web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/dictionary-web-app-h5wwnyuKFL). 
+This is a solution to the [Dictionary web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/dictionary-web-app-h5wwnyuKFL).
 
 ## Table of contents
 
@@ -14,17 +14,15 @@ This is a solution to the [Dictionary web app challenge on Frontend Mentor](http
 
 ## Overview
 
-This app is a dictionary tool that allows users to look up definitions of words. 
+This app is a dictionary tool that allows users to look up definitions of words.
 
 ## Key Features
 
 - **Word Definitions:** Quickly find the meanings and definitions of words.
-- **Theme Switch:** Choose between a light and dark theme. 
+- **Theme Switch:** Choose between a light and dark theme.
   - If using website for the first time, the theme will be applied automatically based on the user's browser/device settings, and this will be saved locally so the app remembers the theme across sessions.
 - **Font Switch:** Choose between 3 custom fonts.
   - It will also be saved locally.
-
-### Links
 
 ## My process
 
