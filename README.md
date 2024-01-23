@@ -2,6 +2,8 @@
 
 This is a solution to the [Dictionary web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/dictionary-web-app-h5wwnyuKFL).
 
+You can see my solution submitted [click here](https://www.frontendmentor.io/solutions/custom-dictionary-app-made-with-reactjs-fY0F-frUVi)
+
 ## Table of contents
 
 - [Overview](#overview)
