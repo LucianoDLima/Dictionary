@@ -1,11 +1,18 @@
 import styled from 'styled-components';
+import { useCurrentWordContext } from '../../context/useCurrentSearchedWord';
+import { device } from '../../styles/MediaQuery';
 
 function Error() {
+  const { currentWord } = useCurrentWordContext();
+
   return (
     <StyledContainer>
-      <img></img>
       <StyledTitle>No definitions found</StyledTitle>
-      <StyledMessage>Sorry pal, we couldn't find definitions for the word you were looking for. You can try the search again at later time or head to the web instead.</StyledMessage>
+
+      <StyledMessage>
+        Sorry pal, we couldn't find definitions for the word <span>{currentWord?.toLowerCase()}</span>. You can try the search again at later time or head to
+        the web instead.
+      </StyledMessage>
     </StyledContainer>
   );
 }
@@ -13,20 +20,33 @@ function Error() {
 export default Error;
 
 const StyledContainer = styled.div`
-  max-width: var(--w-max-width);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin-inline: auto;
+  max-width: var(--w-max-width);
   padding-inline: var(--p-mobile);
   text-align: center;
-
-  * + * {
-    margin-bottom: 1rem;
-  }
 `;
 
 const StyledTitle = styled.h2`
   font-size: var(--fs-heading-S);
-`
+
+  @media ${device.tablet} {
+    font-size: var(--fs-heading-M);
+  }
+`;
 
 const StyledMessage = styled.p`
   font-size: var(--fs-body-S);
-`
+
+  @media ${device.tablet} {
+    font-size: var(--fs-body-M);
+  }
+
+  span {
+    font-weight: 700;
+    font-style: italic;
+    color: var(--clr-accent);
+  }
+`;

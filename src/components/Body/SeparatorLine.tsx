@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../styles/MediaQuery';
 
 type SeparatorLineProps = {
   text?: string;
@@ -30,6 +31,10 @@ const StyledContainer = styled.div`
 
   h3 {
     font-size: var(--fs-body-M);
+
+    @media ${device.tablet} {
+      font-size: var(--fs-heading-M);
+    }
   }
 
   span {

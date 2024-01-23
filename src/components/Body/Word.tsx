@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { device } from '../../styles/MediaQuery';
-import { useDictionaryContext } from '../../hooks/useDictionary';
+import { useDictionaryContext } from '../../context/useDictionary';
 import AudioButton from './AudioButton';
 
 /**

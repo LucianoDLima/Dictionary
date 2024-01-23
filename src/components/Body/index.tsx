@@ -1,6 +1,6 @@
 import Word from './Word';
 import WordMeaning from './WordMeaning';
-import { useDictionaryContext } from '../../hooks/useDictionary';
+import { useDictionaryContext } from '../../context/useDictionary';
 import styled from 'styled-components';
 import Error from '../Error';
 

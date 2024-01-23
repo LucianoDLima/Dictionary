@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../styles/MediaQuery';
 
 interface DefinitionInterface {
   definition: string;
@@ -36,6 +37,10 @@ export default DefinitionList;
 const StyledDefinition = styled.p`
   color: var(--clr-body-primary);
   font-size: var(--fs-body-S);
+
+  @media ${device.tablet} {
+    font-size: var(--fs-body-M);
+  }
 `;
 
 const StyledExample = styled(StyledDefinition)`

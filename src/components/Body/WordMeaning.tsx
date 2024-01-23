@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { useDictionaryContext } from '../../hooks/useDictionary';
+import { useDictionaryContext } from '../../context/useDictionary';
 import SeparatorLine from './SeparatorLine';
 import SourceUrl from './SourceUrl';
 import { StyledHeading } from '../../styles/SharedStyles';
 import DefinitionList from './DefinitionList';
 import MeaningTerm from './MeaningTerm';
 import { DictionaryType } from '../../types';
+import { device } from '../../styles/MediaQuery';
 
 /**
  * Render and distribute data fetched from the API to other components
@@ -63,6 +64,10 @@ const StyledContainer = styled.div`
 
 const StyledTitle = styled(StyledHeading)`
   margin-bottom: 1rem;
+
+  @media ${device.tablet} {
+    font-size: var(--fs-heading-S);
+  }
 `;
 
 const StyledTermsContainer = styled.div`

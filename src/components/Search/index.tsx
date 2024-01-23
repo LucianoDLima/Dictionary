@@ -1,11 +1,13 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import styled from 'styled-components';
-import { useDictionaryContext } from '../../hooks/useDictionary';
+import { useDictionaryContext } from '../../context/useDictionary';
 import { handleFetchedData } from '../../service/api';
 import { FetchedDataType } from '../../types';
 import SearchButton from './SearchButton';
 import SearchBox from './SearchBox';
 import Loading from '../Body/Loading';
+import { useCurrentWordContext } from '../../context/useCurrentSearchedWord';
+import { device } from '../../styles/MediaQuery';
 
 type ValidationState = {
   isEmpty: boolean | undefined;
@@ -20,12 +22,13 @@ type ValidationState = {
 
 function Search() {
   const [inputValue, setInputValue] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [validation, setValidation] = useState<ValidationState>({
     isEmpty: undefined,
     isValid: undefined,
   });
   const { setDictionary } = useDictionaryContext();
+  const { currentWord, setCurrentWord } = useCurrentWordContext();
 
   /**
    * Store the user input
@@ -77,19 +80,24 @@ function Search() {
   async function handleDataFetching(): FetchedDataType {
     if (!handleEmptyValue()) return;
 
-    setIsLoading(true)
-    setDictionary(undefined)
+    if (currentWord?.toLowerCase() === inputValue?.toLowerCase()) {
+      return;
+    }
+
+    setCurrentWord(inputValue);
+    setIsLoading(true);
+    setDictionary(undefined);
 
     const result = await handleFetchedData(inputValue!, setDictionary);
 
-    setIsLoading(false)
-    
+    setIsLoading(false);
+
     if (result === 404) {
       setValidation({
         isEmpty: false,
         isValid: false,
       });
-      
+
       setDictionary(null);
       return;
     }
@@ -130,7 +138,7 @@ function Search() {
 
       {validation.isEmpty && <StyledErrorMessage>Whoops! Can't be empty...</StyledErrorMessage>}
 
-      {isLoading && <Loading />}
+      {isLoading && <Loading isAccent={true} />}
     </StyledContainer>
   );
 }
@@ -144,7 +152,7 @@ const StyledContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  margin-bottom: 1rem;
   margin-inline: auto;
   max-width: var(--w-max-width);
   padding-inline: var(--p-mobile);
@@ -152,7 +160,11 @@ const StyledContainer = styled.div`
 
 const StyledWrapper = styled.div`
   display: flex;
-  gap: 0.25rem;
+  gap: 0.5rem;
+
+  @media ${device.tablet} {
+      gap: 1rem;
+    }
 `;
 
 const StyledErrorMessage = styled.p`

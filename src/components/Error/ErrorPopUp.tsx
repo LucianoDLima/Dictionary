@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import Loading from '../Body/Loading';
 
 type ErrorPopUpProps = {
   opacity: boolean;
+  isLoading: boolean;
 };
 
 /**
@@ -11,13 +13,14 @@ type ErrorPopUpProps = {
  * @returns {JSX.Element}
  */
 
-function ErrorPopUp({ opacity }: ErrorPopUpProps) {
+function ErrorPopUp({ opacity, isLoading }: ErrorPopUpProps) {
   return (
-    <>
-      <StyledContainer $opacity={opacity}>
-        <StyledErrorMessage>No definitions found!</StyledErrorMessage>
+    <StyledContainer $opacity={opacity}>
+      {isLoading 
+        ? <Loading isAccent={false}/> 
+        : <StyledErrorMessage>No definitions found!</StyledErrorMessage>
+      }
       </StyledContainer>
-    </>
   );
 }
 

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { useTheme, useThemeUpdate } from '../../hooks/useTheme';
+import { useTheme, useThemeUpdate } from '../../context/useTheme';
 
 /**
  *  Handle the logic given by the useTheme context to switch between light and dark themes
  *
- * @returns {JSX.Element} 
+ * @returns {JSX.Element}
  */
 
 function ThemeToggle() {

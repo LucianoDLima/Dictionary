@@ -2,7 +2,7 @@
  * Custom hook and context for managing theme preference, saving it in local storage
  */
 
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 
 type ThemeContextProps = {
   darkTheme: boolean;
@@ -12,10 +12,11 @@ const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 const ThemeUpdateContext = createContext<() => void>(() => {});
 
-/**
- * Component to wrap the app and manage the theme preferences
- */
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+type ThemeProviderProps = {
+  children: ReactNode;
+};
+
+export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
   // Check if the user prefers dark mode based on their device/browser's settings.
   const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const initialTheme = localStorage.getItem('preferredTheme') || (prefersDarkMode ? 'dark' : 'light');
@@ -54,12 +55,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-/**
- * Hook to get the current theme state
- *
- * @throws {Error} - if used outside a ThemeProvider
- * @returns {ThemeContextProps} - The current theme state
- */
 export function useTheme(): ThemeContextProps {
   const context = useContext(ThemeContext);
 
@@ -70,12 +65,6 @@ export function useTheme(): ThemeContextProps {
   return context;
 }
 
-/**
- * Hook to get the function for updating the theme
- *
- * @throws {Error} Throw error if used outside a ThemeProvider
- * @returns {() => void} The function for updating the theme
- */
 export function useThemeUpdate(): () => void {
   const context = useContext(ThemeUpdateContext);
 

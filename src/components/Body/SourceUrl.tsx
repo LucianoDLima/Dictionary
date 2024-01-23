@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import SeparatorLine from './SeparatorLine';
 import { StyledHeading } from '../../styles/SharedStyles';
+import { device } from '../../styles/MediaQuery';
 
 type SourceUrlProps = {
   url: string;
@@ -42,6 +43,10 @@ export default SourceUrl;
 const StyledSubTitle = styled(StyledHeading)`
   font-size: var(--fs-body-XS);
   margin-bottom: 0.5rem;
+
+  @media ${device.tablet} {
+    font-size: var(--fs-heading-S);
+  }
 `;
 
 const StyledUrlWrapper = styled.div`
@@ -59,4 +64,8 @@ const StyledUrl = styled.a`
   font-size: var(--fs-body-XS);
   color: var(--clr-body-primary);
   overflow-wrap: break-all;
+
+  @media ${device.tablet} {
+    font-size: var(--fs-body-M);
+  }
 `;

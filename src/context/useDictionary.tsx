@@ -1,5 +1,5 @@
 /**
- * Custom hook and context for managing the dictionary useState change events
+ * Context for managing the dictionary data spreading across the app
  */
 
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
@@ -18,21 +18,12 @@ type DictionaryProviderProps = {
   children: ReactNode;
 };
 
-/**
- * Provider to fill up the state that will be used after the dictionary api is initialized
- */
-export const DictionaryProvider = ({ children }: DictionaryProviderProps): ReactNode => {
+export const DictionaryProvider = ({ children }: DictionaryProviderProps): JSX.Element => {
   const [dictionary, setDictionary] = useState<DictionaryType>();
 
   return <DictionaryContext.Provider value={{ dictionary, setDictionary }}>{children}</DictionaryContext.Provider>;
 };
 
-/**
- * Hook to use the context with proper error handling
- *
- * @throws {Error} - if used outside a DctionaryContext
- * @returns {dictionary} - The dictionary state from DctionaryProvider
- */
 export function useDictionaryContext(): any {
   const context = useContext(DictionaryContext);
 
