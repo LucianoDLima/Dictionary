@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { useCurrentWordContext } from '../../context/useCurrentWord';
 import { device } from '../../styles/MediaQuery';
+import { useValidationContext } from '../../context/useValidation';
 
 function Error() {
-  const { currentWord } = useCurrentWordContext();
+  const { validation} = useValidationContext()
 
   return (
     <StyledContainer>
       <StyledTitle>No definitions found</StyledTitle>
 
       <StyledMessage>
-        Sorry pal, we couldn't find definitions for the word <span>{currentWord?.toLowerCase()}</span>. You can try the search again at later time or head to
+        Sorry pal, we couldn't find definitions for the word <span>{validation.currentWord?.toLowerCase()}</span>. You can try the search again at later time or head to
         the web instead.
       </StyledMessage>
     </StyledContainer>

@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Search from '../components/Search';
 import Body from '../components/Body';
 import { DictionaryProvider } from '../context/useDictionary';
-import { CurrentWordProvider } from '../context/useCurrentWord';
+import { ValidationProvider } from '../context/useValidation';
 
 function App() {
   return (
@@ -16,11 +16,11 @@ function App() {
       </ThemeProvider>
 
       <DictionaryProvider>
-        <CurrentWordProvider>
+        <ValidationProvider>
           <Search />
           <h1 className='screen-reader'>Dictionary application</h1>
           <Body />
-        </CurrentWordProvider>
+        </ValidationProvider>
       </DictionaryProvider>
     </>
   );

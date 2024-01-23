@@ -6,13 +6,8 @@ import { FetchedDataType } from '../../types';
 import SearchButton from './SearchButton';
 import SearchBox from './SearchBox';
 import Loading from '../Body/Loading';
-import { useCurrentWordContext } from '../../context/useCurrentWord';
 import { device } from '../../styles/MediaQuery';
-
-type ValidationState = {
-  isEmpty: boolean | undefined;
-  isValid: boolean | undefined;
-};
+import { useValidationContext } from '../../context/useValidation';
 
 /**
  * Handle user input, fetching the word searched and populating the dictionary context with the retrieved data
@@ -21,14 +16,9 @@ type ValidationState = {
  */
 
 function Search() {
-  const [inputValue, setInputValue] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [validation, setValidation] = useState<ValidationState>({
-    isEmpty: undefined,
-    isValid: undefined,
-  });
+  const [inputValue, setInputValue] = useState<string | undefined>(undefined);
   const { setDictionary } = useDictionaryContext();
-  const { currentWord, setCurrentWord } = useCurrentWordContext();
+  const { validation, setValidation } = useValidationContext();
 
   /**
    * Store the user input
@@ -58,13 +48,14 @@ function Search() {
    * @returns {boolean}
    */
   function handleEmptyValue(): boolean {
-    const isEmpty = inputValue === null || inputValue === '';
+    const isEmpty = inputValue === undefined || inputValue === '';
 
     if (isEmpty) {
-      setValidation({
-        isValid: false,
+      setValidation((prev) => ({
+        ...prev,
         isEmpty: true,
-      });
+        isValid: false,
+      }));
 
       return false;
     }
@@ -80,32 +71,41 @@ function Search() {
   async function handleDataFetching(): FetchedDataType {
     if (!handleEmptyValue()) return;
 
-    if (currentWord?.toLowerCase() === inputValue?.toLowerCase()) {
+    if (validation.currentWord?.toLowerCase() === inputValue?.toLowerCase()) {
       return;
     }
 
-    setCurrentWord(inputValue);
-    setIsLoading(true);
+    // setCurrentWord(inputValue);
+    setValidation((prev) => ({
+      ...prev,
+      currentWord: inputValue,
+      isLoading: true
+    }));
     setDictionary(undefined);
 
     const result = await handleFetchedData(inputValue!, setDictionary);
 
-    setIsLoading(false);
+    setValidation((prev) => ({
+      ...prev,
+      isLoading: false
+    }))
 
     if (result === 404) {
-      setValidation({
+      setValidation((prev) => ({
+        ...prev,
         isEmpty: false,
         isValid: false,
-      });
+      }));
 
       setDictionary(null);
       return;
     }
 
-    setValidation({
+    setValidation((prev) => ({
+      ...prev,
       isEmpty: false,
       isValid: true,
-    });
+    }));
 
     return result;
   }
@@ -138,7 +138,7 @@ function Search() {
 
       {validation.isEmpty && <StyledErrorMessage>Whoops! Can't be empty...</StyledErrorMessage>}
 
-      {isLoading && <Loading isAccent={true} />}
+      {validation.isLoading && <Loading isAccent={true} />}
     </StyledContainer>
   );
 }

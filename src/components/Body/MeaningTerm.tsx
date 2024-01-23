@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { StyledHeading } from '../../styles/SharedStyles';
 import { useDictionaryContext } from '../../context/useDictionary';
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent } from 'react';
 import { handleFetchedData } from '../../service/api';
-import ErrorPopUp from '../Error/ErrorPopUp';
 import { FetchedDataType } from '../../types';
-import { useCurrentWordContext } from '../../context/useCurrentWord';
 import { device } from '../../styles/MediaQuery';
+import Loading from './Loading';
+import { useValidationContext } from '../../context/useValidation';
 
 type MeaningTermProps = {
   title: string;
@@ -22,90 +22,67 @@ type MeaningTermProps = {
 
 function MeaningTerm({ title, terms }: MeaningTermProps) {
   const { setDictionary } = useDictionaryContext();
-  const { setCurrentWord } = useCurrentWordContext();
-  const [fadeOut, setFadeOut] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState<number | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(false);
-
-  /**
-   * Trigger the fade-out animation and then remove the component from the DOM
-   * when user clicks a new button. It then waits till it is no longer loading
-   * before starting up the fade-out animation
-   */
-  useEffect(() => {
-    if (currentPosition === undefined) return;
-
-    if (!isLoading) {
-      const startFadeOut = setTimeout(() => {
-        setFadeOut(true);
-      }, 1550);
-
-      setFadeOut(false);
-
-      const removeFromDOM = setTimeout(() => {
-        setCurrentPosition(-1);
-      }, 2000);
-
-      return () => {
-        clearTimeout(startFadeOut);
-        clearTimeout(removeFromDOM);
-      };
-    }
-  }, [currentPosition, isLoading]);
+  const { validation, setValidation } = useValidationContext();
 
   /**
    * Fetch data with the synonym or antonym the user clicks on
    *
    * @param {MouseEvent<HTMLButtonElement>} e - Click event
    */
-  async function triggerDataFetching(e: MouseEvent, index: number): FetchedDataType {
+  async function triggerDataFetching(e: MouseEvent): FetchedDataType {
     const clickedWord = (e.target as HTMLButtonElement).textContent;
     const wordCommaRemoved = clickedWord?.endsWith(',') ? clickedWord.slice(0, -1) : clickedWord;
 
-    // Prevent user from clicking the same button if there is already an error message
-    if (index === currentPosition) return;
-
     // Prevent user from clicking any button if there is a loading happening
-    if (isLoading) return;
+    if (validation.isLoading) return;
 
-    setIsLoading(true);
-    setCurrentPosition(index);
+    setDictionary(undefined);
+    setValidation((prev) => ({
+      ...prev,
+      isLoading: true,
+    }));
 
     // Fetch data
     const result = await handleFetchedData(wordCommaRemoved!, setDictionary);
 
-    setIsLoading(false);
+    setValidation((prev) => ({
+      ...prev,
+      isLoading: false,
+    }));
 
     // Trigger error message if no defition is found
     if (result === 404) {
-      setCurrentPosition(index);
+      setValidation((prev) => ({
+        ...prev,
+        currentWord: wordCommaRemoved!,
+      }));
+      setDictionary(null);
       return;
     }
 
-    setCurrentWord(wordCommaRemoved);
+    setValidation((prev) => ({
+      ...prev,
+      currentWord: wordCommaRemoved!,
+    }));
 
     return result;
   }
 
   return (
     <>
-      {terms.length ? (
-        <StyledContainer>
-          <StyledTitle>{title}</StyledTitle>
-          {terms.map((term, index) => (
-            <StyledTermButtonsWrapper key={index}>
-              {index === currentPosition ? (
-                <ErrorPopUp
-                  opacity={fadeOut}
-                  isLoading={isLoading}
-                />
-              ) : null}
-
-              <StyledButton onClick={(e: MouseEvent) => triggerDataFetching(e, index)}>{index === terms.length - 1 ? term : `${term},`}</StyledButton>
-            </StyledTermButtonsWrapper>
-          ))}
-        </StyledContainer>
-      ) : null}
+      {validation.isLoading ? <Loading isAccent={true} /> : null}
+      <>
+        {terms.length ? (
+          <StyledContainer>
+            <StyledTitle>{title}</StyledTitle>
+            {terms.map((term, index) => (
+              <StyledTermButtonsWrapper key={index}>
+                <StyledButton onClick={triggerDataFetching}>{index === terms.length - 1 ? term : `${term},`}</StyledButton>
+              </StyledTermButtonsWrapper>
+            ))}
+          </StyledContainer>
+        ) : null}
+      </>
     </>
   );
 }
@@ -137,6 +114,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   padding-block-end: 0.25em;
   transition: background-size var(--spe-quick), opacity var(--spe-quick) ease-in;
+
   @media ${device.tablet} {
     font-size: var(--fs-heading-S);
   }
