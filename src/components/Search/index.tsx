@@ -6,7 +6,7 @@ import { FetchedDataType } from '../../types';
 import SearchButton from './SearchButton';
 import SearchBox from './SearchBox';
 import Loading from '../Body/Loading';
-import { useCurrentWordContext } from '../../context/useCurrentSearchedWord';
+import { useCurrentWordContext } from '../../context/useCurrentWord';
 import { device } from '../../styles/MediaQuery';
 
 type ValidationState = {
@@ -163,8 +163,8 @@ const StyledWrapper = styled.div`
   gap: 0.5rem;
 
   @media ${device.tablet} {
-      gap: 1rem;
-    }
+    gap: 1rem;
+  }
 `;
 
 const StyledErrorMessage = styled.p`

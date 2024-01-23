@@ -5,7 +5,7 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { handleFetchedData } from '../../service/api';
 import ErrorPopUp from '../Error/ErrorPopUp';
 import { FetchedDataType } from '../../types';
-import { useCurrentWordContext } from '../../context/useCurrentSearchedWord';
+import { useCurrentWordContext } from '../../context/useCurrentWord';
 import { device } from '../../styles/MediaQuery';
 
 type MeaningTermProps = {

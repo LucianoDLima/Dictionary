@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useCurrentWordContext } from '../../context/useCurrentSearchedWord';
+import { useCurrentWordContext } from '../../context/useCurrentWord';
 import { device } from '../../styles/MediaQuery';
 
 function Error() {

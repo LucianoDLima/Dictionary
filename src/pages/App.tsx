@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Search from '../components/Search';
 import Body from '../components/Body';
 import { DictionaryProvider } from '../context/useDictionary';
-import { CurrentWordProvider } from '../context/useCurrentSearchedWord';
+import { CurrentWordProvider } from '../context/useCurrentWord';
 
 function App() {
   return (
