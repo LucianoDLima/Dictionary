@@ -1,12 +1,17 @@
-import { ChangeEventHandler, KeyboardEventHandler } from 'react';
+import { ChangeEvent, KeyboardEvent } from 'react';
 import styled, { css } from 'styled-components';
 
 type SearchBoxProps = {
   isError: boolean;
-  onChange: ChangeEventHandler;
-  onKeyUp: KeyboardEventHandler;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onKeyUp: (e: KeyboardEvent<HTMLInputElement>) => void;
 };
 
+/**
+ * Display the search input element
+ *
+ * @returns {JSX.Element}
+ */
 function SearchBox({ isError, onChange, onKeyUp }: SearchBoxProps) {
   return (
     <StyledInput

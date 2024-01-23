@@ -1,17 +1,13 @@
-import styled, { css, keyframes } from 'styled-components';
-
-type LoadingProps = {
-  isAccent: boolean;
-};
+import styled, { keyframes } from 'styled-components';
 
 /**
  * Loading animation when fetching data
  *
  * @returns {JSX.Element}
  */
-function Loading({ isAccent }: LoadingProps) {
+function Loading() {
   return (
-    <LoadingPulse $isAccent={isAccent}>
+    <LoadingPulse>
       <span></span>
       <span></span>
       <span></span>
@@ -32,29 +28,22 @@ const pulsate = keyframes`
 	}
 `;
 
-const LoadingPulse = styled.div<any>`
+const LoadingPulse = styled.div`
   --pulse-size: 1.25rem;
   --pulse-timing: 160ms;
 
-  margin-inline: auto;
-  width: 4.5rem;
   display: flex;
   justify-content: space-between;
+  margin-inline: auto;
+  width: 4.5rem;
 
   span {
     animation: ${pulsate} 1.25s infinite ease-in-out;
-    background: var(--white);
+    background: var(--clr-accent);
     border-radius: 50%;
     height: var(--pulse-size);
     top: 0;
     width: var(--pulse-size);
-    
-    ${(props) =>
-      props.$isAccent &&
-      css`
-        background: var(--clr-accent);
-        text-align: left;
-      `}
 
     &:nth-child(2) {
       animation-delay: var(--pulse-timing);

@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { device } from '../../styles/MediaQuery';
-import ThemeContainer from './ToggleContainer';
+import ThemeContainer from '../Common/ToggleContainer';
+import Logo from '../Common/Logo';
 
+/**
+ * Display the header of the page
+ *
+ * @returns {JSX.Element}
+ */
 function Header() {
   return (
     <StyledHeader>
-      <div>
-        <img
-          src='images/logo.svg'
-          alt='Dictionary'
-        />
-      </div>
+      <Logo />
 
       <ThemeContainer />
     </StyledHeader>
@@ -27,13 +27,4 @@ const StyledHeader = styled.header`
   margin-inline: auto;
   max-width: var(--w-max-width);
   padding-inline: var(--p-mobile);
-
-  & > div:first-child {
-    display: flex;
-    max-width: 1.75rem;
-
-    @media ${device.tablet} {
-      max-width: 2rem;
-    }
-  }
 `;

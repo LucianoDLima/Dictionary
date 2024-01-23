@@ -1,25 +1,27 @@
 import styled from 'styled-components';
 import SeparatorLine from './SeparatorLine';
-import { StyledHeading } from '../../styles/SharedStyles';
 import { device } from '../../styles/MediaQuery';
+import SubTitle from './SubTitle';
 
 type SourceUrlProps = {
   url: string;
 };
 
 /**
- * Display the url source of the given word on the bottom of the page
+ * Display the url source of the searched word on the bottom of the page
  *
  * @param {SourceUrlProps} props
  * @returns {JSX.Element}
  */
-
 function SourceUrl({ url }: SourceUrlProps) {
   return (
-    <div>
+    <li>
       <SeparatorLine />
 
-      <StyledSubTitle as='h5'>Source</StyledSubTitle>
+      <SubTitle
+        title='Source'
+        heading='h5'
+      />
 
       <StyledUrlWrapper>
         <StyledUrl
@@ -34,20 +36,11 @@ function SourceUrl({ url }: SourceUrlProps) {
           alt='New window'
         />
       </StyledUrlWrapper>
-    </div>
+    </li>
   );
 }
 
 export default SourceUrl;
-
-const StyledSubTitle = styled(StyledHeading)`
-  font-size: var(--fs-body-XS);
-  margin-bottom: 0.5rem;
-
-  @media ${device.tablet} {
-    font-size: var(--fs-heading-S);
-  }
-`;
 
 const StyledUrlWrapper = styled.div`
   word-break: break-all;

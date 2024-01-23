@@ -2,22 +2,27 @@ import styled from 'styled-components';
 import { device } from '../../styles/MediaQuery';
 import { useValidationContext } from '../../context/useValidation';
 
-function Error() {
-  const { validation} = useValidationContext()
+/**
+ * Display the error message when no definitions are found
+ *
+ * @returns {JSX.Element}
+ */
+function ErrorDisplay() {
+  const { validation } = useValidationContext();
 
   return (
     <StyledContainer>
       <StyledTitle>No definitions found</StyledTitle>
 
       <StyledMessage>
-        Sorry pal, we couldn't find definitions for the word <span>{validation.currentWord?.toLowerCase()}</span>. You can try the search again at later time or head to
-        the web instead.
+        Sorry pal, we couldn't find definitions for the word <span>{validation.currentWord?.toLowerCase()}</span>. You can try the search again at later time or
+        head to the web instead.
       </StyledMessage>
     </StyledContainer>
   );
 }
 
-export default Error;
+export default ErrorDisplay;
 
 const StyledContainer = styled.div`
   display: flex;

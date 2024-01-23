@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { useDictionaryContext } from '../../context/useDictionary';
 import { handleFetchedData } from '../../service/api';
 import { FetchedDataType } from '../../types';
-import SearchButton from './SearchButton';
-import SearchBox from './SearchBox';
-import Loading from '../Body/Loading';
+import SearchButton from '../Inputs/SearchButton';
+import SearchBox from '../Inputs/SearchBox';
+import Loading from '../Common/Loading';
 import { device } from '../../styles/MediaQuery';
 import { useValidationContext } from '../../context/useValidation';
 
@@ -14,7 +14,6 @@ import { useValidationContext } from '../../context/useValidation';
  *
  * @returns {JSX.Element}
  */
-
 function Search() {
   const [inputValue, setInputValue] = useState<string | undefined>(undefined);
   const { setDictionary } = useDictionaryContext();
@@ -32,7 +31,7 @@ function Search() {
   }
 
   /**
-   * Check if invalid border style should be applied to search input
+   * Check if invalid border style should be applied to the search input
    *
    * @returns {boolean} - True: Don't apply. False: Apply
    */
@@ -71,24 +70,27 @@ function Search() {
   async function handleDataFetching(): FetchedDataType {
     if (!handleEmptyValue()) return;
 
-    if (validation.currentWord?.toLowerCase() === inputValue?.toLowerCase()) {
+    // Prevent user from fetching the data that has already been retrieved
+    const isSameWord = validation.currentWord?.toLowerCase() === inputValue?.toLowerCase();
+
+    if (isSameWord) {
       return;
     }
 
-    // setCurrentWord(inputValue);
     setValidation((prev) => ({
       ...prev,
       currentWord: inputValue,
-      isLoading: true
+      isLoading: true,
     }));
+
     setDictionary(undefined);
 
     const result = await handleFetchedData(inputValue!, setDictionary);
 
     setValidation((prev) => ({
       ...prev,
-      isLoading: false
-    }))
+      isLoading: false,
+    }));
 
     if (result === 404) {
       setValidation((prev) => ({
@@ -111,7 +113,7 @@ function Search() {
   }
 
   /**
-   * Fire the data fetching function
+   * Trigger the data fetching function on key press
    *
    * @param {KeyboardEvent<HTMLInputElement>} e - Enter key press
    * @returns {FetchedDataType}
@@ -138,7 +140,11 @@ function Search() {
 
       {validation.isEmpty && <StyledErrorMessage>Whoops! Can't be empty...</StyledErrorMessage>}
 
-      {validation.isLoading && <Loading isAccent={true} />}
+      {validation.isLoading && (
+        <StyledLoadingWrapper>
+          <Loading />
+        </StyledLoadingWrapper>
+      )}
     </StyledContainer>
   );
 }
@@ -171,4 +177,8 @@ const StyledErrorMessage = styled.p`
   color: var(--clr-error);
   font-style: italic;
   font-size: inherit;
+`;
+
+const StyledLoadingWrapper = styled.div`
+  margin-top: 1rem;
 `;

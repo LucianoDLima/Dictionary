@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import { device } from '../../styles/MediaQuery';
+import SubTitle from './SubTitle';
 
+/**
+ * Props for the SeparatorLine component
+ *
+ * @property {string} text - If no text is specified, the line width will
+ * take up 100% of the space provided
+ */
 type SeparatorLineProps = {
   text?: string;
 };
@@ -8,14 +15,18 @@ type SeparatorLineProps = {
 /**
  * Display a line that separates items
  *
- * @param {SourceUrlProps} props - Optional. If true, the line will not be 100% of its witdth to accomodate the text
+ * @param {SourceUrlProps} props
  * @returns {JSX.Element}
  */
-
 function SeparatorLine({ text }: SeparatorLineProps) {
   return (
     <StyledContainer>
-      {text !== undefined ? <h3>{text}</h3> : null}
+      {text !== undefined ? (
+        <SubTitle
+          title={text}
+          heading='h3'
+        />
+      ) : null}
       <span />
     </StyledContainer>
   );

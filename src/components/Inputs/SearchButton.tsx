@@ -1,11 +1,21 @@
-import { MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
+/**
+ * Props for the SearchButton
+ *
+ * @property {() => void} onClick - Event to trigger the data fetching
+ */
 type SearchButtonProps = {
-  onClick: MouseEventHandler
-}
+  onClick: () => void;
+};
 
-function SearchButton({onClick}: SearchButtonProps) {
+/**
+ * Display the search button
+ *
+ * @param {SearchButtonProps} props
+ * @returns {JSX.Element}
+ */
+function SearchButton({ onClick }: SearchButtonProps) {
   return (
     <StyledButton
       aria-label='Search'
@@ -57,6 +67,6 @@ const StyledSearchIcon = styled.svg`
   width: var(--search-icon-width);
 
   path {
-    stroke: white;
+    stroke: var(--white);
   }
 `;

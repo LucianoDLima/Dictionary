@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 import { device } from '../../styles/MediaQuery';
 import { useDictionaryContext } from '../../context/useDictionary';
-import AudioButton from './AudioButton';
+import AudioButton from '../Inputs/AudioButton';
 
 /**
- * Display the container that holds the given word, its pronunciation button and phonetic writing
+ * Contain the searched word, its pronunciation button and phonetic writing
  *
  * @returns {JSX.Element}
  */
-
 function Word() {
   const { dictionary } = useDictionaryContext();
 
@@ -28,8 +27,6 @@ const StyledContainer = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   margin-block: 1.5rem;
-  margin-inline: auto;
-  max-width: var(--w-max-width);
   word-wrap: break-word;
 `;
 

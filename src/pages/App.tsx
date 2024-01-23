@@ -1,8 +1,8 @@
 import Styles from '../styles';
 import { ThemeProvider } from '../context/useTheme';
-import Header from '../components/Header';
-import Search from '../components/Search';
-import Body from '../components/Body';
+import Header from '../components/Core/Header';
+import Search from '../components/Core/Search';
+import Body from '../components/Core/Body';
 import { DictionaryProvider } from '../context/useDictionary';
 import { ValidationProvider } from '../context/useValidation';
 

@@ -18,6 +18,11 @@ export const ResetStyle = createGlobalStyle`
     font-size: inherit;
   }
 
+  ul,
+  li {
+    list-style: none;
+  }
+
   img {
     width: 100%;
   }

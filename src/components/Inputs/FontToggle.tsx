@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BaseStyle } from '../../styles/GlobalStyles';
 
 /**
- *  Handle and display the select font button
+ *  Handle and display the select font options
  *
  * @returns {JSX.Element} - Only renders if dictionary array is not empty
  */
